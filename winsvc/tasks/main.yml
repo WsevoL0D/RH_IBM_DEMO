@@ -2,7 +2,15 @@
 
 ####  Main role logic
 
+- name: Prepare facts
+  set_fact:
+    ws_fqdn: "{{ ansible_facts.os_family|default('win')|lower ~ '-ws' ~ (play_hosts.index(inventory_hostname) + 1) }}"
+
 #### Importing tasks for setting up windows servers during Demo
+
+- name:  View hosts winsvc role is about to be applied on
+  import_tasks: view_hosts.yml
+  when: view_hosts|bool == True
 
 - name:  Importing tasks for basic preparation of windows hosts
   import_tasks: server_prep_basic.yml

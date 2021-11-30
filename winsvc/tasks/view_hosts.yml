@@ -1,0 +1,4 @@
+- name: Windows host to be configured
+  debug:
+    msg: 
+      - "Current hostname: {{ ansible_hostname }}"

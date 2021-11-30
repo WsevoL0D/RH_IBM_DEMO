@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.package:
+- name: Setup packages
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   loop: "{{ ws_packages }}"

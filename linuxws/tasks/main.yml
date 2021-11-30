@@ -5,17 +5,19 @@
     ws_packages: "{{ packages|union((ansible_facts.os_family is defined)|ternary((vars[ansible_facts.os_family ~ '_packages'] is defined)|ternary(vars[ansible_facts.os_family ~ '_packages'], []),[])) }}"
     ws_services: "{{ services|union((ansible_facts.os_family is defined)|ternary((vars[ansible_facts.os_family ~ '_services'] is defined)|ternary(vars[ansible_facts.os_family ~ '_services'], []),[])) }}"
     ws_fwallrules: "{{ fwallrules|union((ansible_facts.os_family is defined)|ternary((vars[ansible_facts.os_family ~ '_fwallrules'] is defined)|ternary(vars[ansible_facts.os_family ~ '_fwallrules'], []),[])) }}"
-    ws_fqdn: "{{ ansible_facts.os_family|default('demo')|lower ~ '-ws' ~ play_hosts.index(inventory_hostname) ~ '.' ~ domain_name }}"
+    ws_fqdn: "{{ ansible_facts.os_family|default('lin')|lower ~ '-ws' ~ (play_hosts.index(inventory_hostname) + 1) ~ '.' ~ domain_name }}"
 
-# - debug:
-#     msg:
-#       - "{{ ws_packages }}"
-#       - "{{ ws_services }}"
-#       - "{{ ws_fwallrules }}"
+- name:  View hosts linuxws role is about to be applied on
+  import_tasks: view_hosts.yml
+  when: view_hosts|bool == True
 
 - name:  Basic linux preparation
   import_tasks: prep_basic.yml
   when: prep_basic|bool == True
+
+- name: Setup subscriptions for rhel
+  import_tasks: attach_subscriptions.yml
+  when: setup_packages|bool == True and ansible_facts.os_family == 'RedHat'
 
 - name: Setup packages
   import_tasks: setup_packages.yml

@@ -1,10 +1,10 @@
-- name: Firewall rule to allow  firewall rules
+- name: Firewall rule to allow firewall rules
   win_firewall_rule:
     name: "{{firewall_rule_name}}"
     localport: "{{ item }}"
     action: "{{firewall_action}}"
     direction: "{{firewall_direction}}"
     protocol: "{{firewall_protocol}}"
-    state: "{{firewall_state}}"
+    state: "{{firewall_state|default('present')}}"
     enabled: yes
   loop: "{{ firewall_port }}"

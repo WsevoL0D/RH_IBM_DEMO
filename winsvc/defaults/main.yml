@@ -3,6 +3,8 @@
 
 # Setting up default conditionals for including tasks
 
+view_hosts: false
+var_prep_hosname_rn: false
 var_prep_basic: false
 var_ad_add: false
 var_firewall_add: false
@@ -11,7 +13,7 @@ var_msi_add: false
 
 # Defaults for basic tasks
 
-basic_adapter_name: 'Ethernet'
+basic_adapter_name: 'Ethernet 2'
 basic_dns_address: '172.17.197.6'
 
 # Defaults for domain tasks

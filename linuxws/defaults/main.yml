@@ -2,17 +2,22 @@
 # defaults file for linuxws
 
 #Include conditions
-prep_basic: no
-ad_add: no
-setup_packages: no
-setup_services: no
-setup_firewall: no
+view_hosts: false
+prep_basic: false
+ad_add: false
+setup_packages: false
+setup_services: false
+setup_firewall: false
 
 # Defaults for domain tasks
 basic_dns_address: '172.17.197.6'
 domain_name: 'edu.inno.lab'
 domain_ad_user: 'Administrator'
 domain_ad_password: 'P@ssw0rd'
+satellite_ip: '172.17.200.209'
+satellite_fqdn: 'sat.srv.inno.lab'
+satellite_org: 'RRC_Innolab'
+satellite_key: 'Innolab_system_rh'
 
 # General and distro specific packages
 packages:
@@ -20,9 +25,11 @@ packages:
   - cifs-utils
 RedHat_packages:
   - tmux
+  - virt-viewer
   - podman
 Suse_packages:
   - git
+  - vlc
   - docker
 
 # General and distro specific services
